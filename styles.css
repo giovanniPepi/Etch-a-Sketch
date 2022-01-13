@@ -1,36 +1,48 @@
 body {
     background: rgb(172, 191, 204);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
 }
 
 
 .header {
     background: pink;
 }
-
-.main {
-    display:flex;
-    background: yellow;
-    height: 100hv;
-}
-
 .footer {
     background: cyan;
 }
 
+.header, .footer {
+    display: flex;
+    height: 7rem;
+}
+
+.main {
+    display:flex;
+    background: yellow;
+    flex: 1;
+    gap: 5rem;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 60rem;
+}
+
 .container {
-    display:grid;
-    grid-template-columns: repeat(16, 0fr);
-    background: orange;    
+    display: grid;
+    height: 40rem;
+    width: 40rem;
+    
 }
 
 .lateral {
     background: red;
 }
 
-.cloneDiv {
-    
+ .cloneDiv {
     border: .1rem solid black;
-    background: white;
-    width: 1rem;
-    height: 1rem;
+    background: white;    
 }
+
