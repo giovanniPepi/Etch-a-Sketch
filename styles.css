@@ -5,6 +5,7 @@
 .main {
     display:flex;
     background: yellow;
+    height: 100hv;
 }
 
 .footer {
@@ -12,9 +13,19 @@
 }
 
 .container {
-    background: orange;
+    display:grid;
+    grid-template-columns: repeat(16, 0fr);
+    background: orange;    
 }
 
 .lateral {
     background: red;
+}
+
+.cloneDiv {
+    
+    border: .1rem solid black;
+    background: white;
+    width: 1rem;
+    height: 1rem;
 }

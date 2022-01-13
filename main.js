@@ -29,13 +29,23 @@ function createContainer () {
 
     const containerDiv = document.createElement("div");
     containerDiv.setAttribute("class", "container");
-    containerDiv.textContent = "I'm a container!Yeah!";
 
     mainDiv.prepend(lateralDiv);
-    mainDiv.appendChild(containerDiv);   
-}
+    mainDiv.appendChild(containerDiv); 
 
+    createGrid(containerDiv);
+};
 
+function createGrid (containerDiv) {
+    const numberClone = 256;
+
+    for (let i = 0; i < numberClone; i++) {
+        let cloneDiv = document.createElement("div");
+        cloneDiv.setAttribute("class", "cloneDiv");
+        containerDiv.appendChild(cloneDiv);        
+    }
+
+};
 
 
 
