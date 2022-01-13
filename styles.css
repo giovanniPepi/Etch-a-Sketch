@@ -1,0 +1,20 @@
+.header {
+    background: pink;
+}
+
+.main {
+    display:flex;
+    background: yellow;
+}
+
+.footer {
+    background: cyan;
+}
+
+.container {
+    background: orange;
+}
+
+.lateral {
+    background: red;
+}
