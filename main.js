@@ -42,10 +42,15 @@ function createGrid (containerDiv) {
     for (let i = 0; i < numberClone; i++) {
         let cloneDiv = document.createElement("div");
         cloneDiv.setAttribute("class", "cloneDiv");
-        containerDiv.appendChild(cloneDiv);        
+        cloneDiv.addEventListener("mouseover", paintDiv);
+        containerDiv.appendChild(cloneDiv);  
     }
-
 };
 
+function paintDiv (e) {
+    e.target.style.backgroundColor = 'black';
+}
 
+
+/* cloneDiv.style.background="black"*/
 
