@@ -1,10 +1,11 @@
 const body = document.querySelector("body");
+const defaultMode = 'color'
+let defaultNumberClone = 256; // used in createGrid
+let colorGridMode = defaultMode;
+let numberClone = defaultNumberClone;
    
 createBaseHtml();
-createContainer();
-
-const defaultMode = 'color'
-let colorGridMode = defaultMode;
+addCSS();
 
 
 function createBaseHtml () {
@@ -21,11 +22,7 @@ function createBaseHtml () {
     footerDiv.setAttribute("class", "footer");
     footerDiv.textContent = "I'm the footerDiv!";
     body.appendChild(footerDiv);
-}
-
-function createContainer () {
-    const mainDiv = document.querySelector(".main");
-    
+  
     const lateralDiv = document.createElement("div");
     lateralDiv.setAttribute("class", "lateral");
     
@@ -50,19 +47,16 @@ function createContainer () {
     mainDiv.prepend(lateralDiv);
     mainDiv.appendChild(containerDiv); 
 
-    createGrid(containerDiv);   
-};
-
+    createGrid(containerDiv);  
+}
 function createGrid (containerDiv) {
-    const numberClone = 256;  
-
     for (let i = 0; i < numberClone; i++) {
         let cloneDiv = document.createElement("div");
         cloneDiv.setAttribute("class", "cloneDiv");
+        /* calls painting function for every mouse move */
         cloneDiv.addEventListener("mouseover", paintGrid);
         containerDiv.appendChild(cloneDiv);  
-    }
-    addCSS();
+    };    
 };
 
 function addCSS () {
@@ -86,21 +80,17 @@ function addCSS () {
 };
 
 function paintGrid (e) {
-    console.log(colorGridMode);
     if (colorGridMode == 'random') {
         let randR = Math.floor(Math.random() * 256);
         let randG = Math.floor(Math.random() * 256);
         let randB = Math.floor(Math.random() * 256);
-        e.target.style.backgroundColor = `rgb(${randR}, ${randG}, ${randB})`
-        
+        e.target.style.backgroundColor = `rgb(${randR}, ${randG}, ${randB})`        
     } else if (colorGridMode == 'color') {
         e.target.style.backgroundColor = 'black';
     } else if (colorGridMode == 'erase') {
         e.target.style.backgroundColor = 'white';
+    } else if (colorGridMode = 'pencil') {
+        console.log ('fuck');
     }
-
-
-
 };
-
 
