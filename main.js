@@ -1,6 +1,6 @@
 const body = document.querySelector("body");
 const defaultMode = 'color'
-const defaultSize = 256;
+const defaultSize = 16;
 
 
 let numberClone = defaultSize; // used in createGrid
@@ -73,10 +73,11 @@ function createHtml () {
 
 function createGrid (numberClone) {
     const containerDiv = document.querySelector(".containerDiv");
-    console.log(numberClone);
-    for (let i = 0; i < numberClone; i++) {
+    for (let i = 0; i < numberClone * numberClone; i++) {
         let cloneDiv = document.createElement("div");
         cloneDiv.setAttribute("class", "cloneDiv");
+        containerDiv.style.gridTemplateColumns = `repeat(${numberClone}, 1fr)`;
+        containerDiv.style.gridTemplateRows = `repeat(${numberClone}, 1fr)`; 
         /* calls painting function for every mouse move */
         cloneDiv.addEventListener("mouseover", paintGrid);       
         containerDiv.appendChild(cloneDiv);  
@@ -118,8 +119,6 @@ function addCSS () {
     
     const containerDiv = document.querySelector('.containerDiv');
     containerDiv.style.display = 'grid';
-    containerDiv.style.gridTemplateColumns = `repeat(16, 1fr)`;
-    containerDiv.style.gridTemplateRows = `repeat(16, 1fr)`; 
     containerDiv.style.height = '40rem';
     containerDiv.style.width = '40rem';
     
@@ -210,10 +209,7 @@ function getEventListeners() {
 };
 
 function updateGrid (value) {
-    console.log(value);
-    numberClone = `${value * value}`;
-    console.log(numberClone);
-
+    numberClone = `${value}`;
     const containerDiv = document.querySelector(".containerDiv");
     containerDiv.innerHTML = "";
     createGrid(numberClone);
