@@ -26,7 +26,7 @@ button:hover{
   width: 25px;
   height: 25px;
   border-radius: 50%; 
-  background: rgb(94, 119, 138);
+  background: rgb(116, 130, 141)
   cursor: pointer;
 }
 
@@ -38,3 +38,11 @@ button:hover{
   cursor: pointer;
 }
 
+
+.gitImg {
+  transition: transform 1s cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+.gitImg:hover {
+  transform: rotate(960deg) scale(1.2);
+}

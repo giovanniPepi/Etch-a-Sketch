@@ -62,6 +62,20 @@ function createHtml () {
 
     const sizeP = document.createElement("p");
     sizeP.setAttribute("class", "sizeP");
+
+    const gitLink = document.createElement("a");
+    gitLink.setAttribute("class", "gitLink");
+
+    const gitImg = document.createElement("img");
+    gitImg.setAttribute("class", "gitImg");
+
+    const footerDivP = document.createElement("p");
+    footerDivP.setAttribute('class', 'footerDivP');
+    
+    footerDiv.appendChild(footerDivP);    
+    footerDiv.appendChild(gitLink);
+    gitLink.appendChild(gitImg);   
+
     
     sizeDiv.appendChild(sizeP);
     sizeDiv.prepend(sizeInpt);
@@ -98,7 +112,7 @@ function addCSS () {
     body.style.margin = 0;
     body.style.textAlign = 'center';
     body.style.fontFamily = 'Arial';
-    body.style.color = 'rgb(65, 65, 65';
+    body.style.color = 'rgb(65, 65, 65)';
 
     const lateralDiv = document.querySelector(".lateral")
     lateralDiv.style.display = 'flex';
@@ -128,31 +142,40 @@ function addCSS () {
     headerDiv.appendChild(headerDivP);
 
     headerDiv.style.backgroundColor = "background:rgb(173, 181, 197)";
-    headerDiv.style.height = "5rem";
+    headerDiv.style.height = "3.5rem";
     headerDiv.style.display = "flex";
     headerDiv.style.padding = "1.5rem";
     headerDiv.style.alignText = "center";
     headerDiv.style.alignItems = "center";
     headerDiv.style.justifyContent = "center";
-    headerDiv.style.fontSize = "6rem";
+    headerDiv.style.fontSize = "5rem";
     headerDiv.style.fontWeight = 550;
  
-    const footerDiv = document.querySelector(".footerDiv")
-    const footerDivP = document.createElement("p");
-    footerDiv.textContent = "Copyright @gerijeb"
-    footerDiv.appendChild(footerDivP);
+    const footerDiv = document.querySelector(".footerDiv")    
 
-    footerDiv.style.backgroundColor = "rgb(94, 119, 138)";
-    footerDiv.style.height = "1rem";
-    footerDiv.style.fontSize = '1.25rem';
+    footerDiv.style.backgroundColor = 'rgb(116, 130, 141)'; 
+    footerDiv.style.height = "1.5rem";
+    footerDiv.style.margin = 0;
+    footerDiv.style.fontSize = '1.1rem';
     footerDiv.style.display = "flex";
     footerDiv.style.padding = "1rem";
     footerDiv.style.alignText = "center";
     footerDiv.style.alignItems = "center";
     footerDiv.style.justifyContent = "center";
+    footerDiv.style.gap = ".8rem";
 
-    const sizeDiv = document.querySelector(".sizeDiv");
+    const footerDivP = document.querySelector(".footerDivP");
+    footerDivP.textContent = "Copyright @gerijeb"
+    footerDivP.style.color = "rgb(65, 65, 65)";
 
+    const gitLink =  document.querySelector(".gitLink");
+    gitLink.setAttribute("href", "https://github.com/gerijeb");
+    gitLink.style.textDecoration = 'none';
+
+    const gitImg = document.querySelector(".gitImg");
+    gitImg.setAttribute("src", "./img/GitHub-Mark-32px.png");
+    gitImg.setAttribute("width", "32px");
+    gitImg.setAttribute("height", "32px");
 
     const sizeInpt = document.querySelector(".sizeInpt");
     sizeInpt.setAttribute("type", "range");
