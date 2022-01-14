@@ -1,46 +1,11 @@
+.headerDiv {
+    font-size: 3rem;
+    font-weight: 550;
+}
+
 body {
-    background: rgb(172, 191, 204);
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
+    font-family: 'Roboto';
 }
-
-
-.header {
-    background: pink;
-}
-.footer {
-    background: cyan;
-}
-
-.header, .footer {
-    display: flex;
-    height: 7rem;
-}
-
-.main {
-    display:flex;
-    background: yellow;
-    flex: 1;
-    gap: 5rem;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    max-width: 60rem;
-}
-
-.container {
-    display: grid;
-    height: 40rem;
-    width: 40rem;
-    
-}
-
-.lateral {
-    background: red;
-}
-
  .cloneDiv {
     border: .1rem solid black;
     background: white;    
