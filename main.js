@@ -194,9 +194,7 @@ function paintGrid (e) {
         /* Avoids NaN when dealing with sub 10 rgb numbers */
         function cutString () {
             if (backgroundColor.length === 18) {
-                console.log(backgroundColor);
                 const bgToNumber = backgroundColor.slice(4, 17);  
-                console.log(bgToNumber + typeof bgToNumber);
                 return bgToNumber;
             } else if (backgroundColor.length === 15) {
                 const bgToNumber = backgroundColor.slice(4, 14);                
@@ -208,11 +206,8 @@ function paintGrid (e) {
         of numbers, subtracts 25 from rgb value and finally set the
         new bgcolor */        
         const bgToArray = cutString(backgroundColor).split(", ");
-        console.log(bgToArray);
         const numberArray = bgToArray.map(Number);
-        console.log(numberArray);
         const subtractArray = numberArray.map(subtractNumber);
-        console.log(subtractArray);
 
         function subtractNumber (value) {
             if (!value) return 0;
@@ -220,7 +215,6 @@ function paintGrid (e) {
         };        
 
         const newString = `rgb(${subtractArray})`;
-        console.log(newString);
         e.target.style.backgroundColor = newString;           
 
     };
