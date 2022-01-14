@@ -51,8 +51,11 @@ function createHtml () {
     mainDiv.prepend(lateralDiv);
     mainDiv.appendChild(containerDiv);     
 
-    createGrid(containerDiv);  
+    createGrid(containerDiv);     
+
     
+
+   
 };
 
 function createGrid (containerDiv) {
@@ -60,7 +63,7 @@ function createGrid (containerDiv) {
         let cloneDiv = document.createElement("div");
         cloneDiv.setAttribute("class", "cloneDiv");
         /* calls painting function for every mouse move */
-        cloneDiv.addEventListener("mouseover", paintGrid);
+        cloneDiv.addEventListener("mouseover", paintGrid);       
         containerDiv.appendChild(cloneDiv);  
     };    
 };
@@ -78,6 +81,7 @@ function addCSS () {
     body.style.flexDirection = 'column';
     body.style.margin = 0;
     body.style.textAlign = 'center';
+    body.style.fontFamily = 'Arial';
 
     const lateralDiv = document.querySelector(".lateral")
     lateralDiv.style.display = 'flex';
@@ -114,7 +118,8 @@ function addCSS () {
     headerDiv.style.alignText = "center";
     headerDiv.style.alignItems = "center";
     headerDiv.style.justifyContent = "center";
-    
+    headerDiv.style.fontSize = "3rem";
+    headerDiv.style.fontWeight = 550;
  
     const footerDiv = document.querySelector(".footerDiv")
     const footerDivP = document.createElement("p");
@@ -129,6 +134,9 @@ function addCSS () {
     footerDiv.style.alignItems = "center";
     footerDiv.style.justifyContent = "center";
 
+    const cloneDiv = document.querySelectorAll(".cloneDiv");
+    cloneDiv.forEach(clone => clone.style.border = ".1rem solid black");
+    cloneDiv.forEach (clone => clone.style.backgroundColor = 'white'); 
 };
 
 function getEventListeners() {
