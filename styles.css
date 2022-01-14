@@ -1,6 +1,9 @@
+button.active {
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
+}
 
-
-/* .cloneDiv {
-    border: .1rem solid black;
-    background: white;    
-} */
+button:hover{
+  transform: scale(1.11);
+  background: white;
+}
