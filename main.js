@@ -1,8 +1,10 @@
 const body = document.querySelector("body");
 const defaultMode = 'color'
-let defaultNumberClone = 256; // used in createGrid
+const defaultSize = 256;
+
+
+let numberClone = defaultSize; // used in createGrid
 let colorGridMode = defaultMode;
-let numberClone = defaultNumberClone;
    
 createHtml();
 addCSS();
@@ -52,12 +54,26 @@ function createHtml () {
     const containerDiv = document.createElement("div");
     containerDiv.setAttribute("class", "containerDiv");
 
-    mainDiv.appendChild(lateralDiv);
+    const sizeDiv = document.createElement("div");
+    sizeDiv.setAttribute("class", "sizeDiv");
+   
+    const sizeInpt = document.createElement("input");
+    sizeInpt.setAttribute("class", "sizeInpt");
+
+    const sizeP = document.createElement("p");
+    sizeP.setAttribute("class", "sizeP");
+    
+    sizeDiv.appendChild(sizeP);
+    sizeDiv.prepend(sizeInpt);
+    lateralDiv.appendChild(sizeDiv);
+    mainDiv.appendChild(lateralDiv);    
     mainDiv.prepend(containerDiv);     
-    createGrid(containerDiv);       
+    createGrid(numberClone);       
 };
 
-function createGrid (containerDiv) {
+function createGrid (numberClone) {
+    const containerDiv = document.querySelector(".containerDiv");
+    console.log(numberClone);
     for (let i = 0; i < numberClone; i++) {
         let cloneDiv = document.createElement("div");
         cloneDiv.setAttribute("class", "cloneDiv");
@@ -97,14 +113,15 @@ function addCSS () {
     mainDiv.style.alignItems = 'center';
     mainDiv.style.margin = "0 auto";
     mainDiv.style.maxWidth = '55rem';
+    mainDiv.style.height = "auto"
     mainDiv.style.padding = '1rem';
     
     const containerDiv = document.querySelector('.containerDiv');
     containerDiv.style.display = 'grid';
     containerDiv.style.gridTemplateColumns = `repeat(16, 1fr)`;
     containerDiv.style.gridTemplateRows = `repeat(16, 1fr)`; 
-    containerDiv.style.height = '37rem';
-    containerDiv.style.width = '37rem';
+    containerDiv.style.height = '40rem';
+    containerDiv.style.width = '40rem';
     
     const headerDiv = document.querySelector(".headerDiv")
     const headerDivP = document.createElement("p");
@@ -135,6 +152,17 @@ function addCSS () {
     footerDiv.style.alignItems = "center";
     footerDiv.style.justifyContent = "center";
 
+    const sizeDiv = document.querySelector(".sizeDiv");
+
+
+    const sizeInpt = document.querySelector(".sizeInpt");
+    sizeInpt.setAttribute("type", "range");
+    sizeInpt.setAttribute("min", "10");
+    sizeInpt.setAttribute("max", "64");
+
+    const sizeP = document.querySelector(".sizeP");
+    sizeP.textContent = `Grid size: ${sizeInpt.value} * ${sizeInpt.value}`;    
+
     const cloneDiv = document.querySelectorAll(".cloneDiv");
     cloneDiv.forEach (clone => clone.style.backgroundColor = 'white'); 
 
@@ -144,7 +172,7 @@ function addCSS () {
     buttons.forEach(button => button.style.border = '.1rem solid rgb(65, 65, 65)');
     buttons.forEach(button => button.style.borderRadius = '.5rem');
     buttons.forEach(button => button.style.color = "rgb(65, 65, 65)");
-    buttons.forEach(button => button.style.padding = '1rem');
+    buttons.forEach(button => button.style.padding = '.5rem');
 
 
 
@@ -174,7 +202,29 @@ function getEventListeners() {
 
     const eraseBtn = document.querySelector(".eraseBtn");
     eraseBtn.addEventListener("click", () => refreshClones());
+
+    const sizeInpt = document.querySelector(".sizeInpt");
+    sizeInpt.onchange = (e) => updateGrid(e.target.value);
+    sizeInpt.onmousemove = (e) => updateP(e.target.value);
+
 };
+
+function updateGrid (value) {
+    console.log(value);
+    numberClone = `${value * value}`;
+    console.log(numberClone);
+
+    const containerDiv = document.querySelector(".containerDiv");
+    containerDiv.innerHTML = "";
+    createGrid(numberClone);
+    refreshClones();    
+};
+
+
+function updateP (value) {   
+    const sizeP = document.querySelector(".sizeP");
+    sizeP.innerText = `Grid size: ${value} * ${value}`;
+}
 
 function paintGrid (e) {
     if (colorGridMode == 'random') {
@@ -219,4 +269,5 @@ function paintGrid (e) {
 
     };
 };
+
 
