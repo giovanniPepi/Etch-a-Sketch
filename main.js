@@ -156,8 +156,9 @@ function addCSS () {
 
     const sizeInpt = document.querySelector(".sizeInpt");
     sizeInpt.setAttribute("type", "range");
-    sizeInpt.setAttribute("min", "10");
-    sizeInpt.setAttribute("max", "64");
+    sizeInpt.setAttribute("min", "4");
+    sizeInpt.setAttribute("max", "170");
+    sizeInpt.setAttribute("value", "16");
 
     const sizeP = document.querySelector(".sizeP");
     sizeP.textContent = `Grid size: ${sizeInpt.value} * ${sizeInpt.value}`;    
@@ -215,7 +216,6 @@ function updateGrid (value) {
     createGrid(numberClone);
     refreshClones();    
 };
-
 
 function updateP (value) {   
     const sizeP = document.querySelector(".sizeP");
