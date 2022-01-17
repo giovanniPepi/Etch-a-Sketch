@@ -1,5 +1,6 @@
 const body = document.querySelector("body");
 const containerDiv = document.createElement("div");
+const sizeP = document.createElement("p");
 
 const defaultMode = 'color'
 const defaultSize = 16;
@@ -55,7 +56,6 @@ createHtml = () => {
     const sizeInpt = document.createElement("input");
     sizeInpt.setAttribute("class", "sizeInpt");
 
-    const sizeP = document.createElement("p");
     sizeP.setAttribute("class", "sizeP");
 
     const gitLink = document.createElement("a");
@@ -171,7 +171,6 @@ addCSS = () => {
     sizeInpt.setAttribute("max", "170");
     sizeInpt.setAttribute("value", "16");
 
-    const sizeP = document.querySelector(".sizeP");
     sizeP.textContent = `Grid size: ${sizeInpt.value} * ${sizeInpt.value}`;    
 
     const cloneDiv = document.querySelectorAll(".cloneDiv");
@@ -216,10 +215,9 @@ updateGrid = (value) => {
     createGrid(numberClone);
     refreshClones();    
 };
-updateP = (value) => {   
-    const sizeP = document.querySelector(".sizeP");
-    sizeP.innerText = `Grid size: ${value} * ${value}`;
-}
+
+updateP = (value) =>  sizeP.innerText = `Grid size: ${value} * ${value}`;
+
 paintGrid = (e) => {
     if (colorGridMode == 'random') {
         let randR = Math.floor(Math.random() * 256);
