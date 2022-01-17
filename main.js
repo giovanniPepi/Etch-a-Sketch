@@ -2,7 +2,7 @@ const body = document.querySelector("body");
 const containerDiv = document.createElement("div");
 const sizeP = document.createElement("p");
 
-const defaultMode = 'color'
+const defaultMode = 'color';
 const defaultSize = 16;
 let numberClone = defaultSize;
 let colorGridMode = defaultMode;
@@ -204,8 +204,8 @@ getEventListeners = () => {
     });
     const eraseBtn = body.querySelector(".eraseBtn");
     eraseBtn.addEventListener("click", () => refreshClones());
-    const sizeInpt = body.querySelector(".sizeInpt");
-    
+
+    const sizeInpt = body.querySelector(".sizeInpt");    
     sizeInpt.onchange = (e) => updateGrid(e.target.value);
     sizeInpt.onmousemove = (e) => updateP(e.target.value);
 };
@@ -219,43 +219,47 @@ updateGrid = (value) => {
 updateP = (value) =>  sizeP.innerText = `Grid size: ${value} * ${value}`;
 
 paintGrid = (e) => {
-    if (colorGridMode == 'random') {
+    switch (colorGridMode) {
+    case ('random'): {
         let randR = Math.floor(Math.random() * 256);
         let randG = Math.floor(Math.random() * 256);
         let randB = Math.floor(Math.random() * 256);
-        e.target.style.backgroundColor = `rgb(${randR}, ${randG}, ${randB})`        
-    } else if (colorGridMode == 'color') {
+        e.target.style.backgroundColor = `rgb(${randR}, ${randG}, ${randB})`;
+    } break; 
+    case ('color'): {
         e.target.style.backgroundColor = 'rgb(65, 65, 65)';
-    } else if (colorGridMode == 'erase') {
+    } break;
+    case ('erase'): {
         e.target.style.backgroundColor = 'white';
-    } else if (colorGridMode = 'pencil') {
+    } break; 
+    case ('pencil'): {
         /* bg color cannot be acessed directly, workaround: */
         const styles = window.getComputedStyle(e.target);
         const backgroundColor = styles.backgroundColor;
         /*cuts rgb from string, converts to array, converts to array
         of numbers, subtracts 25 from rgb value and finally set the
         new bgcolor */ 
-        cutString = () => {
-            if (backgroundColor.length === 18) {
-                const bgToNumber = backgroundColor.slice(4, 17);  
-                return bgToNumber;
-            } else if (backgroundColor.length === 15) {
-                const bgToNumber = backgroundColor.slice(4, 14);                
-                return bgToNumber;
-            } else return "";
-        };          
+            cutString = () => {
+                if (backgroundColor.length === 18) {
+                    const bgToNumber = backgroundColor.slice(4, 17);  
+                    return bgToNumber;
+                } else if (backgroundColor.length === 15) {
+                    const bgToNumber = backgroundColor.slice(4, 14);                
+                    return bgToNumber;
+                } else return "";
+            };          
+            const bgToArray = cutString(backgroundColor).split(", ");
+            const numberArray = bgToArray.map(Number);
 
-        const bgToArray = cutString(backgroundColor).split(", ");
-        const numberArray = bgToArray.map(Number);
+            subtractNumber = (value) => {
+                if (!value) return 0;
+                else return value - 25;
+            }; 
 
-        subtractNumber = (value) => {
-            if (!value) return 0;
-            else return value - 25;
-        }; 
-
-        const subtractArray = numberArray.map(subtractNumber);
-        const newString = `rgb(${subtractArray})`;
-        e.target.style.backgroundColor = newString;           
+            const subtractArray = numberArray.map(subtractNumber);
+            const newString = `rgb(${subtractArray})`;
+            e.target.style.backgroundColor = newString;          
+        } break;
     };
 };
 createHtml();
