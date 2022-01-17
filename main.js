@@ -1,4 +1,6 @@
 const body = document.querySelector("body");
+const containerDiv = document.createElement("div");
+
 const defaultMode = 'color'
 const defaultSize = 16;
 let numberClone = defaultSize;
@@ -45,7 +47,6 @@ createHtml = () => {
     eraseBtn.textContent = "Erase";
     lateralDiv.appendChild(eraseBtn);
 
-    const containerDiv = document.createElement("div");
     containerDiv.setAttribute("class", "containerDiv");
 
     const sizeDiv = document.createElement("div");
@@ -69,7 +70,6 @@ createHtml = () => {
     footerDiv.appendChild(footerDivP);    
     footerDiv.appendChild(gitLink);
     gitLink.appendChild(gitImg);   
-
     sizeDiv.appendChild(sizeP);
     sizeDiv.prepend(sizeInpt);
     lateralDiv.appendChild(sizeDiv);
@@ -78,7 +78,6 @@ createHtml = () => {
     createGrid(numberClone);       
 };
 createGrid = (numberClone) => {
-    const containerDiv = document.querySelector(".containerDiv");
     for (let i = 0; i < numberClone * numberClone; i++) {
         let cloneDiv = document.createElement("div");
         cloneDiv.setAttribute("class", "cloneDiv");
@@ -121,7 +120,6 @@ addCSS = () => {
     mainDiv.style.height = "auto"
     mainDiv.style.padding = '1rem';
     
-    const containerDiv = document.querySelector('.containerDiv');
     containerDiv.style.display = 'grid';
     containerDiv.style.height = '40rem';
     containerDiv.style.width = '40rem';
@@ -186,43 +184,34 @@ addCSS = () => {
     buttons.forEach(button => button.style.borderRadius = '.5rem');
     buttons.forEach(button => button.style.color = "rgb(65, 65, 65)");
     buttons.forEach(button => button.style.padding = '.5rem');
-
-
-
 };
 getEventListeners = () => {
-    const switchWhiteBtn = document.querySelector(".switchWhiteBtn");
+    const switchWhiteBtn = body.querySelector(".switchWhiteBtn");
     switchWhiteBtn.addEventListener("click", () => colorGridMode = 'erase');
-
-    const switchBlackBtn = document.querySelector(".switchBlackBtn");
+    const switchBlackBtn = body.querySelector(".switchBlackBtn");
     switchBlackBtn.addEventListener("click", () => {
         colorGridMode = 'color';
         refreshClones();
     });
-    
-    const switchRandBtn = document.querySelector(".randBtn");
+    const switchRandBtn = body.querySelector(".randBtn");
     switchRandBtn.addEventListener("click", () => { 
         colorGridMode = 'random';
         refreshClones();
     });
-
-    const switchPencilBtn = document.querySelector(".switchPencilBtn");
+    const switchPencilBtn = body.querySelector(".switchPencilBtn");
     switchPencilBtn.addEventListener("click", () => {
         colorGridMode = "pencil";
         refreshClones();
     });
-
-    const eraseBtn = document.querySelector(".eraseBtn");
+    const eraseBtn = body.querySelector(".eraseBtn");
     eraseBtn.addEventListener("click", () => refreshClones());
-
-    const sizeInpt = document.querySelector(".sizeInpt");
+    const sizeInpt = body.querySelector(".sizeInpt");
+    
     sizeInpt.onchange = (e) => updateGrid(e.target.value);
     sizeInpt.onmousemove = (e) => updateP(e.target.value);
-
 };
 updateGrid = (value) => {
     numberClone = `${value}`;
-    const containerDiv = document.querySelector(".containerDiv");
     containerDiv.innerHTML = "";
     createGrid(numberClone);
     refreshClones();    
