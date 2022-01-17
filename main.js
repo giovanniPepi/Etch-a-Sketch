@@ -1,16 +1,13 @@
 const body = document.querySelector("body");
-const defaultMode = 'color'
+const containerDiv = document.createElement("div");
+const sizeP = document.createElement("p");
+
+const defaultMode = 'color';
 const defaultSize = 16;
-
-
-let numberClone = defaultSize; // used in createGrid
+let numberClone = defaultSize;
 let colorGridMode = defaultMode;
-   
-createHtml();
-addCSS();
-getEventListeners();
 
-function createHtml () {
+createHtml = () => {
     const headerDiv  = document.createElement("div");
     headerDiv.setAttribute("class", "headerDiv");
     body.prepend(headerDiv);
@@ -51,7 +48,6 @@ function createHtml () {
     eraseBtn.textContent = "Erase";
     lateralDiv.appendChild(eraseBtn);
 
-    const containerDiv = document.createElement("div");
     containerDiv.setAttribute("class", "containerDiv");
 
     const sizeDiv = document.createElement("div");
@@ -60,7 +56,6 @@ function createHtml () {
     const sizeInpt = document.createElement("input");
     sizeInpt.setAttribute("class", "sizeInpt");
 
-    const sizeP = document.createElement("p");
     sizeP.setAttribute("class", "sizeP");
 
     const gitLink = document.createElement("a");
@@ -75,8 +70,6 @@ function createHtml () {
     footerDiv.appendChild(footerDivP);    
     footerDiv.appendChild(gitLink);
     gitLink.appendChild(gitImg);   
-
-    
     sizeDiv.appendChild(sizeP);
     sizeDiv.prepend(sizeInpt);
     lateralDiv.appendChild(sizeDiv);
@@ -84,9 +77,7 @@ function createHtml () {
     mainDiv.prepend(containerDiv);     
     createGrid(numberClone);       
 };
-
-function createGrid (numberClone) {
-    const containerDiv = document.querySelector(".containerDiv");
+createGrid = (numberClone) => {
     for (let i = 0; i < numberClone * numberClone; i++) {
         let cloneDiv = document.createElement("div");
         cloneDiv.setAttribute("class", "cloneDiv");
@@ -97,13 +88,11 @@ function createGrid (numberClone) {
         containerDiv.appendChild(cloneDiv);  
     };    
 };
-
-function refreshClones () {
+refreshClones = () => {
     const cloneDiv = document.querySelectorAll(".cloneDiv")
     cloneDiv.forEach(clone => clone.style.backgroundColor = 'white');
 }
-
-function addCSS () {
+addCSS = () => {
     const body = document.querySelector("body");
     body.style.background = "rgb(224, 227, 230)";
     body.style.height = '100vh';
@@ -131,7 +120,6 @@ function addCSS () {
     mainDiv.style.height = "auto"
     mainDiv.style.padding = '1rem';
     
-    const containerDiv = document.querySelector('.containerDiv');
     containerDiv.style.display = 'grid';
     containerDiv.style.height = '40rem';
     containerDiv.style.width = '40rem';
@@ -183,7 +171,6 @@ function addCSS () {
     sizeInpt.setAttribute("max", "170");
     sizeInpt.setAttribute("value", "16");
 
-    const sizeP = document.querySelector(".sizeP");
     sizeP.textContent = `Grid size: ${sizeInpt.value} * ${sizeInpt.value}`;    
 
     const cloneDiv = document.querySelectorAll(".cloneDiv");
@@ -196,97 +183,85 @@ function addCSS () {
     buttons.forEach(button => button.style.borderRadius = '.5rem');
     buttons.forEach(button => button.style.color = "rgb(65, 65, 65)");
     buttons.forEach(button => button.style.padding = '.5rem');
-
-
-
 };
-
-function getEventListeners() {
-    const switchWhiteBtn = document.querySelector(".switchWhiteBtn");
+getEventListeners = () => {
+    const switchWhiteBtn = body.querySelector(".switchWhiteBtn");
     switchWhiteBtn.addEventListener("click", () => colorGridMode = 'erase');
-
-    const switchBlackBtn = document.querySelector(".switchBlackBtn");
+    const switchBlackBtn = body.querySelector(".switchBlackBtn");
     switchBlackBtn.addEventListener("click", () => {
         colorGridMode = 'color';
         refreshClones();
     });
-    
-    const switchRandBtn = document.querySelector(".randBtn");
+    const switchRandBtn = body.querySelector(".randBtn");
     switchRandBtn.addEventListener("click", () => { 
         colorGridMode = 'random';
         refreshClones();
     });
-
-    const switchPencilBtn = document.querySelector(".switchPencilBtn");
+    const switchPencilBtn = body.querySelector(".switchPencilBtn");
     switchPencilBtn.addEventListener("click", () => {
         colorGridMode = "pencil";
         refreshClones();
     });
-
-    const eraseBtn = document.querySelector(".eraseBtn");
+    const eraseBtn = body.querySelector(".eraseBtn");
     eraseBtn.addEventListener("click", () => refreshClones());
 
-    const sizeInpt = document.querySelector(".sizeInpt");
+    const sizeInpt = body.querySelector(".sizeInpt");    
     sizeInpt.onchange = (e) => updateGrid(e.target.value);
     sizeInpt.onmousemove = (e) => updateP(e.target.value);
-
 };
-
-function updateGrid (value) {
+updateGrid = (value) => {
     numberClone = `${value}`;
-    const containerDiv = document.querySelector(".containerDiv");
     containerDiv.innerHTML = "";
     createGrid(numberClone);
     refreshClones();    
 };
 
-function updateP (value) {   
-    const sizeP = document.querySelector(".sizeP");
-    sizeP.innerText = `Grid size: ${value} * ${value}`;
-}
+updateP = (value) =>  sizeP.innerText = `Grid size: ${value} * ${value}`;
 
-function paintGrid (e) {
-    if (colorGridMode == 'random') {
+paintGrid = (e) => {
+    switch (colorGridMode) {
+    case ('random'): {
         let randR = Math.floor(Math.random() * 256);
         let randG = Math.floor(Math.random() * 256);
         let randB = Math.floor(Math.random() * 256);
-        e.target.style.backgroundColor = `rgb(${randR}, ${randG}, ${randB})`        
-    } else if (colorGridMode == 'color') {
+        e.target.style.backgroundColor = `rgb(${randR}, ${randG}, ${randB})`;
+    } break; 
+    case ('color'): {
         e.target.style.backgroundColor = 'rgb(65, 65, 65)';
-    } else if (colorGridMode == 'erase') {
+    } break;
+    case ('erase'): {
         e.target.style.backgroundColor = 'white';
-    } else if (colorGridMode = 'pencil') {
+    } break; 
+    case ('pencil'): {
         /* bg color cannot be acessed directly, workaround: */
         const styles = window.getComputedStyle(e.target);
         const backgroundColor = styles.backgroundColor;
-            
-        /* Avoids NaN when dealing with sub 10 rgb numbers */
-        function cutString () {
-            if (backgroundColor.length === 18) {
-                const bgToNumber = backgroundColor.slice(4, 17);  
-                return bgToNumber;
-            } else if (backgroundColor.length === 15) {
-                const bgToNumber = backgroundColor.slice(4, 14);                
-                return bgToNumber;
-            } else return "";
-        };          
-    
         /*cuts rgb from string, converts to array, converts to array
         of numbers, subtracts 25 from rgb value and finally set the
-        new bgcolor */        
-        const bgToArray = cutString(backgroundColor).split(", ");
-        const numberArray = bgToArray.map(Number);
-        const subtractArray = numberArray.map(subtractNumber);
+        new bgcolor */ 
+            cutString = () => {
+                if (backgroundColor.length === 18) {
+                    const bgToNumber = backgroundColor.slice(4, 17);  
+                    return bgToNumber;
+                } else if (backgroundColor.length === 15) {
+                    const bgToNumber = backgroundColor.slice(4, 14);                
+                    return bgToNumber;
+                } else return "";
+            };          
+            const bgToArray = cutString(backgroundColor).split(", ");
+            const numberArray = bgToArray.map(Number);
 
-        function subtractNumber (value) {
-            if (!value) return 0;
-            else return value - 25;
-        };        
+            subtractNumber = (value) => {
+                if (!value) return 0;
+                else return value - 25;
+            }; 
 
-        const newString = `rgb(${subtractArray})`;
-        e.target.style.backgroundColor = newString;           
-
+            const subtractArray = numberArray.map(subtractNumber);
+            const newString = `rgb(${subtractArray})`;
+            e.target.style.backgroundColor = newString;          
+        } break;
     };
 };
-
-
+createHtml();
+addCSS();
+getEventListeners();
